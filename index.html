@@ -43,7 +43,7 @@
       };
 
       // Verzend de gegevens met een fetch-aanroep naar de Google Apps Script via de CORS-proxy
-      fetch('https://cors-anywhere.herokuapp.com/https://script.google.com/macros/s/AKfycbzBRoLDBu2M8IoamhNBKQnLfZ70VdWkSQSMI1HBoa_jwCeohfKm69VYlBptyexesCYA/exec', {
+      fetch('https://script.google.com/macros/s/AKfycbzBRoLDBu2M8IoamhNBKQnLfZ70VdWkSQSMI1HBoa_jwCeohfKm69VYlBptyexesCYA/exec', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formulierData)

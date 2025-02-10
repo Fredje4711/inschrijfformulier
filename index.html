@@ -1,54 +1,65 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inschrijvingsformulier</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        form { width: 50%; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }
-        label, input, textarea { display: block; width: 100%; margin-bottom: 10px; }
-        button { background: blue; color: white; padding: 10px; border: none; cursor: pointer; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inschrijfformulier</title>
 </head>
 <body>
-    <h2>Inschrijvingsformulier</h2>
-    <form id="inschrijfformulier">
-        <label>Naam (*) <input type="text" id="naam" required></label>
-        <label>E-mail (*) <input type="email" id="email" required></label>
-        <label>Aantal deelnemers (*) <input type="number" id="aantal" required></label>
-        <label>Opmerkingen <textarea id="opmerkingen"></textarea></label>
-        <button type="submit">Verzenden</button>
-    </form>
-    <p id="bevestiging" style="display:none; color: green;">Inschrijving succesvol verzonden!</p>
-    
-    <script>
-document.getElementById("inschrijfformulier").addEventListener("submit", function(event) {
-    event.preventDefault();
-    
-    let data = {
-        naam: document.getElementById("naam").value,
-        email: document.getElementById("email").value,
-        aantal: document.getElementById("aantal").value,
-        opmerkingen: document.getElementById("opmerkingen").value
-    };
+  <h1>Inschrijfformulier</h1>
+  <form id="inschrijfformulier">
+    <label for="naam">Naam:</label>
+    <input type="text" id="naam" name="naam" required><br><br>
 
-    fetch("https://script.google.com/macros/s/AKfycbxFFTtx7MJCQTD5yxkMtWH-nqP8QTZ6iCMwkyFuCxEdW-6-smRRLoHwXi2-fzam2gQT/exec", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert(data.message);
-    })
-    .catch(error => {
-        console.error("Fout:", error);
+    <label for="email">E-mail:</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="aantal">Aantal personen:</label>
+    <input type="number" id="aantal" name="aantal" required><br><br>
+
+    <label for="opmerkingen">Opmerkingen:</label>
+    <textarea id="opmerkingen" name="opmerkingen"></textarea><br><br>
+
+    <button type="submit">Verstuur</button>
+  </form>
+
+  <script>
+    // Voeg een event listener toe voor het formulier
+    document.getElementById('inschrijfformulier').addEventListener('submit', function(event) {
+      event.preventDefault(); // Voorkom standaard formulier verzenden
+
+      // Verzamel de gegevens uit het formulier
+      const naam = document.getElementById('naam').value;
+      const email = document.getElementById('email').value;
+      const aantal = document.getElementById('aantal').value;
+      const opmerkingen = document.getElementById('opmerkingen').value;
+
+      // Maak een object van de gegevens
+      const formulierData = {
+        naam: naam,
+        email: email,
+        aantal: aantal,
+        opmerkingen: opmerkingen
+      };
+
+      // Verzend de gegevens met een fetch-aanroep naar de Google Apps Script via de CORS-proxy
+      fetch('https://cors-anywhere.herokuapp.com/https://script.google.com/macros/s/AKfycbzBRoLDBu2M8IoamhNBKQnLfZ70VdWkSQSMI1HBoa_jwCeohfKm69VYlBptyexesCYA/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formulierData)
+      })
+      .then(response => response.json()) // Verwerk de JSON-response
+      .then(data => {
+        // Toon succesbericht of andere actie
+        alert('Formulier succesvol verzonden!');
+        console.log('Response:', data);
+      })
+      .catch(error => {
+        // Foutafhandeling
+        alert('Er is iets mis gegaan. Probeer het opnieuw.');
+        console.error('Error:', error);
+      });
     });
-});
-
-    </script>
+  </script>
 </body>
 </html>

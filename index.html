@@ -24,23 +24,31 @@
     
     <script>
         document.getElementById("inschrijfformulier").addEventListener("submit", function(event) {
-            event.preventDefault();
-            const data = {
-                naam: document.getElementById("naam").value,
-                email: document.getElementById("email").value,
-                aantal: document.getElementById("aantal").value,
-                opmerkingen: document.getElementById("opmerkingen").value
-            };
-            fetch("https://script.google.com/macros/s/AKfycbykIeUItc4aa1AXD-bQ_xtaY149XWhfFIbUeLfbbUQrDwLfpFxQ-Z3GBTsSb61CMHDq/exec", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            }).then(response => response.text())
-            .then(data => {
-                document.getElementById("bevestiging").style.display = "block";
-                document.getElementById("inschrijfformulier").reset();
-            });
-        });
+    event.preventDefault();
+    
+    let data = {
+        naam: document.getElementById("naam").value,
+        email: document.getElementById("email").value,
+        aantal: document.getElementById("aantal").value,
+        opmerkingen: document.getElementById("opmerkingen").value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbzaCmJ51-MGvYalZxQWHk_sHfVrWPBlSzJS9l5jwRbunJzS4VB6FqmoohG8jhqjwlcq/exec", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert("Inschrijving succesvol!");
+    })
+    .catch(error => {
+        console.error("Fout:", error);
+    });
+});
+
     </script>
 </body>
 </html>

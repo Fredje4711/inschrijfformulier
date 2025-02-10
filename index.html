@@ -23,7 +23,7 @@
     <p id="bevestiging" style="display:none; color: green;">Inschrijving succesvol verzonden!</p>
     
     <script>
-        document.getElementById("inschrijfformulier").addEventListener("submit", function(event) {
+document.getElementById("inschrijfformulier").addEventListener("submit", function(event) {
     event.preventDefault();
     
     let data = {
@@ -33,7 +33,7 @@
         opmerkingen: document.getElementById("opmerkingen").value
     };
 
-    fetch("https://script.google.com/macros/s/AKfycbzaCmJ51-MGvYalZxQWHk_sHfVrWPBlSzJS9l5jwRbunJzS4VB6FqmoohG8jhqjwlcq/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbxFFTtx7MJCQTD5yxkMtWH-nqP8QTZ6iCMwkyFuCxEdW-6-smRRLoHwXi2-fzam2gQT/exec", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -42,7 +42,7 @@
     })
     .then(response => response.json())
     .then(data => {
-        alert("Inschrijving succesvol!");
+        alert(data.message);
     })
     .catch(error => {
         console.error("Fout:", error);
